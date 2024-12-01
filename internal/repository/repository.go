@@ -41,7 +41,7 @@ func (r *pgRepo) WalletTransactionDeposit(id uuid.UUID, amount int64) error {
 		}
 	}()
 
-	result, err := tx.Exec(queryWalletTransactionDeposit, amount, id)
+	result, err := tx.Exec(queryWalletTransactionDeposit, id, amount)
 	if err != nil {
 		err := errors.Errorf("pgRepo.WalletTransactionDeposit %v", err)
 		return err
@@ -82,7 +82,7 @@ func (r *pgRepo) WalletTransactionWithdraw(id uuid.UUID, amount int64) error {
 		}
 	}()
 
-	result, err := tx.Exec(queryWalletTransactionWithdraw, amount, id)
+	result, err := tx.Exec(queryWalletTransactionWithdraw, id, amount)
 	if err != nil {
 		err := errors.Errorf("pgRepo.WalletTransactionWithdraw %v", err)
 		return err
@@ -108,7 +108,7 @@ func (r *pgRepo) WalletTransactionWithdraw(id uuid.UUID, amount int64) error {
 
 func (r *pgRepo) GetBalance(id uuid.UUID) (models.GetBalanceResponse, error) {
 	var res models.GetBalanceResponse
-	if err := r.db.QueryRow(queryGetBalance).Scan(&res.Amount); err != nil {
+	if err := r.db.QueryRow(queryGetBalance, id).Scan(&res.Amount); err != nil {
 		err := errors.Errorf("pgRepo.GetBalance %v", err)
 		return res, err
 	}
