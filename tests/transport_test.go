@@ -30,6 +30,10 @@ func (m *MockUsecase) GetBalance(walletID string) (models.GetBalanceResponse, er
 	return args.Get(0).(models.GetBalanceResponse), args.Error(1)
 }
 
+func (m *MockUsecase) CreateWallet() error {
+	return nil
+}
+
 func setupRouter(s *transport.Server) *gin.Engine {
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()

@@ -23,6 +23,7 @@ type Usecase struct {
 type UseCase interface {
 	WalletTransaction(models.WalletTransaction) error
 	GetBalance(id string) (models.GetBalanceResponse, error)
+	CreateWallet() error
 }
 
 func NewUsecase(pgPepo repository.Repository) UseCase {
@@ -92,4 +93,10 @@ func (u *Usecase) parsedAmount(data int64) error {
 		return err
 	}
 	return nil
+}
+
+func (u *Usecase) CreateWallet() error {
+	idstr := "7b7ad84a-cb3e-4734-8e80-98aef40122d2"
+	id, _ := uuid.Parse(idstr)
+	return u.pgPepo.CreateWallet(id)
 }

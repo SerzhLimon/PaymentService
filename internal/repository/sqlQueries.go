@@ -18,4 +18,9 @@ const (
 		FROM wallets
 		WHERE id = $1
 	`
+
+	queryCreateWallet = `
+		INSERT INTO wallets (id, balance, created_at)
+		VALUES ($1, 0, NOW())
+	`
 )

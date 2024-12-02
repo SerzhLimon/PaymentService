@@ -59,5 +59,11 @@ func getRoutes(handleFunctions ApiHandleFunctions) []Route {
 			"/api/v1/wallets",
 			handleFunctions.Server.GetBalance,
 		},
+		{
+			"CreateWallet",
+			http.MethodGet,
+			"/api/v1/create",
+			handleFunctions.Server.CreateWallet,
+		},
 	}
 }

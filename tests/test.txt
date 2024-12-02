@@ -17,3 +17,5 @@ curl -X POST "http://localhost:8080/api/v1/wallet" \
   "operation": "WITHDRAW",
   "amount": 500
 }'
+
+curl -X GET "http://localhost:8080/api/v1/create"

@@ -14,6 +14,7 @@ type Repository interface {
 	WalletTransactionDeposit(id uuid.UUID, amount int64) error
 	WalletTransactionWithdraw(id uuid.UUID, amount int64) error
 	GetBalance(id uuid.UUID) (models.GetBalanceResponse, error)
+	CreateWallet(id uuid.UUID) error
 }
 
 type pgRepo struct {
@@ -113,4 +114,13 @@ func (r *pgRepo) GetBalance(id uuid.UUID) (models.GetBalanceResponse, error) {
 		return res, err
 	}
 	return res, nil
+}
+
+func (r *pgRepo) CreateWallet(id uuid.UUID) error {
+	_, err := r.db.Exec(queryCreateWallet, id)
+	if err != nil {
+		err := errors.Errorf("pgRepo.CreateWallet %v", err)
+		return err
+	}
+	return  nil
 }

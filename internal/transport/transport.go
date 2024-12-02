@@ -27,12 +27,7 @@ func NewServer(database *sql.DB) *Server {
 }
 
 func (s *Server) WalletTransaction(c *gin.Context) {
-
-	// t := http.DefaultTransport.(*http.Transport).Clone()
-	// t.MaxIdleConns = 1000
-	// t.MaxConnsPerHost = 1000
-	// t.MaxIdleConnsPerHost = 1000
-
+	
 	var request models.WalletTransaction
 	if err := c.ShouldBindJSON(&request); err != nil {
 		logrus.WithError(err).Error("error binding JSON")
@@ -71,4 +66,16 @@ func (s *Server) GetBalance(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, res)
+}
+
+func (s *Server) CreateWallet(c *gin.Context) {
+	
+	err := s.Usecase.CreateWallet()
+	if err != nil {
+		logrus.Error(err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "failed to create wallet"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"success": "true"})
 }

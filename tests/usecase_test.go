@@ -31,6 +31,10 @@ func (m *MockRepository) GetBalance(walletID uuid.UUID) (models.GetBalanceRespon
 	return args.Get(0).(models.GetBalanceResponse), args.Error(1)
 }
 
+func (m *MockRepository) CreateWallet(walletID uuid.UUID) error {
+	return nil
+}
+
 func TestWalletTransaction_Success_Deposit(t *testing.T) {
 	mockRepo := new(MockRepository)
 	usecase := usecase.NewUsecase(mockRepo)
