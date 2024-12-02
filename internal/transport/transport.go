@@ -27,6 +27,12 @@ func NewServer(database *sql.DB) *Server {
 }
 
 func (s *Server) WalletTransaction(c *gin.Context) {
+
+	// t := http.DefaultTransport.(*http.Transport).Clone()
+	// t.MaxIdleConns = 1000
+	// t.MaxConnsPerHost = 1000
+	// t.MaxIdleConnsPerHost = 1000
+
 	var request models.WalletTransaction
 	if err := c.ShouldBindJSON(&request); err != nil {
 		logrus.WithError(err).Error("error binding JSON")
@@ -50,7 +56,7 @@ func (s *Server) GetBalance(c *gin.Context) {
 	if id == "" {
 		err := errors.New("parametr 'id' is empty")
 		logrus.Error(err)
-		c.JSON(http.StatusBadRequest, gin.H{"error": "parametr 'id' is empty"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "parameter 'id' is empty"})
 		return
 	}
 

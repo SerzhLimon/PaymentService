@@ -7,5 +7,5 @@ type WalletTransaction struct {
 }
 
 type GetBalanceResponse struct {
-	Amount int64 `json:"balance"`
+	Amount float64 `json:"balance"`
 }
